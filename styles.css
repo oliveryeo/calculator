@@ -58,3 +58,7 @@ body {
     margin-bottom: -18px;
 }
 
+button:hover {
+    background-color: #cdced1;
+    /*Make it #91908d on click*/
+}
