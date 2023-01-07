@@ -1,0 +1,35 @@
+html, body {
+    margin 0;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.outer {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 520px;
+    border-style: solid;
+    border-radius: 16px;
+    padding: 24px;
+}
+
+.inner-display {
+    flex: 1 0 0; /* Grow all the way, do not shrink */
+    border-style: solid;
+    margin-bottom: 24px;
+}
+
+.inner-buttons {
+    flex: 2.5 0 0; /* Button containers take 2.5 ratio of the space */
+    border-style: solid;
+}
+
+.inner-display, .inner-buttons {
+    border-radius: 4px;
+}
