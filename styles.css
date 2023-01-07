@@ -27,9 +27,28 @@ body {
 
 .inner-buttons {
     flex: 2.5 0 0; /* Button containers take 2.5 ratio of the space */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
     border-style: solid;
 }
 
 .inner-display, .inner-buttons {
     border-radius: 4px;
 }
+
+.buttons-1, .buttons-2, .buttons-3, .buttons-4 {
+    flex: 1 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttons-1 > *, .buttons-2 > *, .buttons-3 > *, .buttons-4 > * {
+    border-style: solid;
+    border-radius: 4px;
+    width: 80px;
+    height: 60px;
+}
+
