@@ -21,8 +21,16 @@ body {
 
 .inner-display {
     flex: 1 0 0; /* Grow all the way, do not shrink */
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
     border-style: solid;
     margin-bottom: 24px;
+    padding: 8px;
+}
+
+.display {
+    font-size: 32px;
 }
 
 .inner-buttons {
@@ -34,6 +42,10 @@ body {
 
 .inner-display, .inner-buttons {
     border-radius: 4px;
+}
+
+.display {
+
 }
 
 .buttons-1, .buttons-2, .buttons-3, .buttons-4 {
