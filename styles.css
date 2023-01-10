@@ -34,7 +34,7 @@ body {
     padding: 8px;
 }
 
-.display, .tracker {
+.display, .tracker { /* Helps to push the text to bottom right */
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
