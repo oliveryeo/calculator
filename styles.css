@@ -29,7 +29,7 @@ body {
     justify-content: flex-end;
     align-items: flex-end;
     border-style: solid;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     padding: 8px;
 }
 
@@ -44,11 +44,19 @@ body {
     justify-content: space-between;
 }
 
-.buttons-1, .buttons-2, .buttons-3, .buttons-4 {
+.buttons-0, .buttons-1, .buttons-2, .buttons-3, .buttons-4 {
     flex: 1 0 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.buttons-0 > * {
+    border-style: solid;
+    border-radius: 4px;
+    width: 186.5px;
+    height: 60px;
+    font-size: large;
 }
 
 .buttons-1 > *, .buttons-2 > *, .buttons-3 > *, .buttons-4 > * {
@@ -57,10 +65,6 @@ body {
     width: 80px;
     height: 60px;
     font-size: large;
-}
-
-.buttons-1 {
-    margin-top: -18px;
 }
 
 .buttons-4 {
