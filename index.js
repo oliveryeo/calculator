@@ -1,8 +1,12 @@
+const display = document.querySelector('.display');
 
 
 
 
 
+
+
+// --------------------------------- FUNCTIONS -------------------------------------
 function add(a, b) {
     return a + b;
 }
