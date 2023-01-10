@@ -11,9 +11,6 @@ buttons.forEach(buttonClick);
 
 
 
-
-
-
 // --------------------------------- FUNCTIONS -------------------------------------
 function add(a, b) {
     return a + b;
@@ -81,6 +78,9 @@ function buttonClick(button) {
             } else {
                 display.textContent += '.';
             }
+        } else if (button.classList[0] === 'add'){
+            // continue function here
+            console.log('add!');
         }
     })
 }
