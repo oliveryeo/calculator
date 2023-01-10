@@ -26,6 +26,7 @@ body {
 .inner-display {
     flex: 1 0 0; /* Grow all the way, do not shrink */
     display: flex;
+    flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
     border-style: solid;
@@ -33,12 +34,23 @@ body {
     padding: 8px;
 }
 
+.display, .tracker {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
 .display {
+    flex: 2 0 0;
     font-size: 32px;
 }
 
+.tracker {
+    flex: 1 0 0;
+}
+
 .inner-buttons {
-    flex: 2.5 0 0; /* Button containers take 2.5 ratio of the space */
+    flex: 3.5 0 0; /* Button containers take 2.5 ratio of the space */
     display: flex;
     flex-direction: column;
     justify-content: space-between;

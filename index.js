@@ -6,7 +6,7 @@ const display = document.querySelector('.display');
 const buttons = document.querySelectorAll('button');
 
 
-// Select all buttons → 
+// Select all buttons → add event listener for appropriate buttons
 buttons.forEach(buttonClick);
 
 
