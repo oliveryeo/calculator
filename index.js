@@ -73,6 +73,14 @@ function buttonClick(button) {
             display.textContent += '8';
         } else if (button.classList[0] === 'nine'){
             display.textContent += '9';
+        } else if (button.classList[0] === 'zero'){
+            display.textContent += '0';
+        } else if (button.classList[0] === 'decimal'){
+            if (display.textContent.includes('.')){ // Check if already have decimal
+                return;
+            } else {
+                display.textContent += '.';
+            }
         }
     })
 }
