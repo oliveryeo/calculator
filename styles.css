@@ -19,6 +19,10 @@ body {
     padding: 24px;
 }
 
+.inner-display, .inner-buttons {
+    border-radius: 4px;
+}
+
 .inner-display {
     flex: 1 0 0; /* Grow all the way, do not shrink */
     display: flex;
@@ -38,14 +42,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
-
-.inner-display, .inner-buttons {
-    border-radius: 4px;
-}
-
-.display {
-
 }
 
 .buttons-1, .buttons-2, .buttons-3, .buttons-4 {
