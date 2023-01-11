@@ -32,23 +32,22 @@ function operate(operator, a, b) {
     }
 }
 
-// If display is populated, empty it before populating it again with the second value ONLY after pressing the number
-
-// Store 2nd number → Operate on first and second number with first operator → Store first operator as second operator → display accumulated result
-
 function buttonClick(button) {
     button.addEventListener('click', () => {
+        // Clear or Delete functions
+        if (button.classList[0] === 'clear'){
+            clearDisplay();
+        } else if (button.classList[0] === 'delete'){
+            display.textContent = display.textContent.slice(0,(display.textContent.length - 1));
+        }
+
         // Clear the display once an operator is activated
         if (displayClear === true) {
             display.textContent = '';
             displayClear = false;
         }
 
-        if (button.classList[0] === 'clear'){
-            clearDisplay();
-        } else if (button.classList[0] === 'delete'){
-            display.textContent = display.textContent.slice(0,(display.textContent.length - 1));
-        } else if (button.classList[0] === 'one'){
+        if (button.classList[0] === 'one'){
             display.textContent += '1';
             displayInput = true;
         } else if (button.classList[0] === 'two'){
@@ -85,31 +84,16 @@ function buttonClick(button) {
                 display.textContent += '.';
                 displayInput = true;
             }
+        }
+        
+        // Operator logic: Store 2nd number → operate() on firstNumber and secondNumber with firstOperator → Reassign firstOperator with secondOperator → display accumulated result
+
+        // If firstNumber and firstOperator does not exist, assign them with current display input.
+
+        if (button.classList[0] === 'add'){
+            add();
         } else if (button.classList[0] === 'add'){
-            if (displayInput === false) return; // Avoid operator spamming
-
-            if (firstNumber === 0 && firstOperator === '') {
-                firstNumber = parseFloat(display.textContent);
-                firstOperator = '+';
-                tracker.textContent = `${firstNumber} ${firstOperator}`;
-                displayClear = true;
-                displayInput = false;
-            } else {
-                secondNumber = parseFloat(display.textContent);
-                secondOperator = '+';
-
-                // Run the operation
-                firstNumber = operate(firstOperator, firstNumber, secondNumber);
-
-                // Reassign operator
-                firstOperator = secondOperator;
-
-                // Display content
-                display.textContent = `${firstNumber}`;
-                tracker.textContent = `${firstNumber} ${firstOperator}`;
-                displayClear = true;
-                displayInput = false;
-            }
+            console.log('work in progress!');
         }
     });
 }
@@ -121,4 +105,31 @@ function clearDisplay() {
     secondNumber = 0;
     firstOperator = '';
     secondOperator = '';
+}
+
+function add() {
+    if (displayInput === false) return; // Avoid operator spamming
+
+    if (firstNumber === 0 && firstOperator === '') {
+        firstNumber = parseFloat(display.textContent);
+        firstOperator = '+';
+        tracker.textContent = `${firstNumber} ${firstOperator}`;
+        displayClear = true;
+        displayInput = false;
+    } else {
+        secondNumber = parseFloat(display.textContent);
+        secondOperator = '+';
+
+        // Run the operation
+        firstNumber = operate(firstOperator, firstNumber, secondNumber);
+
+        // Reassign operator
+        firstOperator = secondOperator;
+
+        // Display content
+        display.textContent = `${firstNumber}`;
+        tracker.textContent = `${firstNumber} ${firstOperator}`;
+        displayClear = true;
+        displayInput = false;
+    }
 }
