@@ -35,12 +35,6 @@ function operate(operator, a, b) {
 function buttonClick(button) {
     button.addEventListener('click', () => {
         console.log(display.textContent.length);
-
-        // Prevent overflowing of display text
-        if (display.textContent.length === 24){
-            display.textContent = display.textContent.slice(0,(display.textContent.length - 1));
-        }
-
         // Clear or Delete functions
         if (button.classList[0] === 'clear'){
             clearDisplay();
@@ -107,6 +101,11 @@ function buttonClick(button) {
             runOperation('*');
         } else if (button.classList[0] === '='){
             console.log('work in progress!')
+        }
+
+        // Prevent overflowing of display text
+        if (display.textContent.length === 24){
+            display.textContent = display.textContent.slice(0,(display.textContent.length - 1));
         }
     });
 }
