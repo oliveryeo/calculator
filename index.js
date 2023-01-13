@@ -28,13 +28,14 @@ function operate(operator, a, b) {
     } else if (operator === '*') {
         return a * b;
     } else if (operator === '/') {
+        // Return NaN if trying to divide by 0
+        if (b === 0) return NaN;
         return a / b;
     }
 }
 
 function buttonClick(button) {
     button.addEventListener('click', () => {
-        console.log(display.textContent.length);
         // Clear or Delete functions
         if (button.classList[0] === 'clear'){
             clearDisplay();
@@ -139,7 +140,22 @@ function runOperation(operator) {
         secondOperator = operator;
 
         // Run the operation and round the number
-        firstNumber = Math.round(operate(firstOperator, firstNumber, secondNumber) * 100) / 100;
+        firstNumber = operate(firstOperator, firstNumber, secondNumber)
+
+        // Reset everything if trying to divide by 0
+        if (Number.isNaN(firstNumber)){
+            display.textContent = `trololol`;
+            tracker.textContent = `trololol`;
+            firstNumber = 0;
+            secondNumber = 0;
+            firstOperator = '';
+            secondOperator = '';
+            displayClear = true; // make sure to reset the display
+            return;
+        }
+
+        // Round the number to 2 d.p.
+        firstNumber = Math.round(firstNumber * 100) / 100;
 
         // Reassign operator
         firstOperator = secondOperator;
