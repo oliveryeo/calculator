@@ -158,7 +158,7 @@ function runOperation(operator) {
         } else {
             secondNumber = parseFloat(display.textContent);
             secondOperator = operator;
-            if (equalOperator !== true){ // Skip if equalOperator was run once to prevent accidental calculation
+            if (equalOperator !== true){ // Skip if equalOperator was run once to prevent accidental calculation and to reset the firstOperator variable after equality function invokation. secondNumber variable will not be utilized in this instance.
                 // Run the operation
                 firstNumber = operate(firstOperator, firstNumber, secondNumber);
                 // Reset everything if trying to divide by 0
