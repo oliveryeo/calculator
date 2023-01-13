@@ -8,6 +8,7 @@ let firstOperator = '';
 let secondOperator = '';
 let displayClear = false;
 let displayInput = false; // Checker for operator spamming
+let equalOperator = false;
 
 const display = document.querySelector('.display');
 const tracker = document.querySelector('.tracker');
@@ -121,7 +122,9 @@ function clearDisplay() {
 }
 
 function runOperation(operator) {
-    if (displayInput === false) return; // Avoid operator spamming
+    if (displayInput === false && equalOperator == false) return; // Avoid operator spamming
+
+    displayInput = false; // Reset everytime the function is run
 
     if (firstOperator === '') {
         firstNumber = parseFloat(display.textContent);
@@ -137,7 +140,6 @@ function runOperation(operator) {
         }
 
         displayClear = true; 
-        displayInput = false; // Reset displayInput boolean
         
     } else if (operator !== "=") {
         secondNumber = parseFloat(display.textContent);
@@ -168,7 +170,6 @@ function runOperation(operator) {
             tracker.textContent = `${firstNumber} ${firstOperator}`;    
         }
         displayClear = true;
-        displayInput = false; // Reset displayInput boolean
     } else {
         secondNumber = parseFloat(display.textContent);
         secondOperator = '';    
@@ -180,7 +181,6 @@ function runOperation(operator) {
         // Display content
         display.textContent = `${firstNumber}`;
         tracker.textContent = `${firstNumber}`;
-        displayClear = false; // Do not reset display
-        displayInput = true; // Do not reset displayInput
+        displayInput = true; // Do not reset so the boolean can be selected again
     }
 }
