@@ -101,7 +101,7 @@ function buttonClick(button) {
         } else if (button.classList[0] === '*'){
             runOperation('*');
         } else if (button.classList[0] === '='){
-            console.log('work in progress!')
+            runOperation('=');
         }
 
         // Prevent overflowing of display text
@@ -123,23 +123,26 @@ function clearDisplay() {
 function runOperation(operator) {
     if (displayInput === false) return; // Avoid operator spamming
 
-    if (firstNumber === 0 && firstOperator === '') {
+    if (firstOperator === '') {
         firstNumber = parseFloat(display.textContent);
         firstOperator = operator;
+
+        // Display divide symbol
         if (operator === "/"){
             tracker.textContent = `${firstNumber} ÷`;
+        } else if (operator === "=") {
+            tracker.textContent = `${firstNumber}`;
         } else {
-            tracker.textContent = `${firstNumber} ${firstOperator}`;    
+            tracker.textContent = `${firstNumber} ${firstOperator}`;
         }
 
         displayClear = true; 
-        displayInput = false;
+        displayInput = false; // Reset displayInput boolean
         
-    } else {
+    } else if (operator !== "=") {
         secondNumber = parseFloat(display.textContent);
-        secondOperator = operator;
-
-        // Run the operation and round the number
+        secondOperator = operator;    
+        // Run the operation
         firstNumber = operate(firstOperator, firstNumber, secondNumber)
 
         // Reset everything if trying to divide by 0
@@ -154,9 +157,6 @@ function runOperation(operator) {
             return;
         }
 
-        // Round the number to 2 d.p.
-        firstNumber = Math.round(firstNumber * 100) / 100;
-
         // Reassign operator
         firstOperator = secondOperator;
 
@@ -168,6 +168,19 @@ function runOperation(operator) {
             tracker.textContent = `${firstNumber} ${firstOperator}`;    
         }
         displayClear = true;
-        displayInput = false;
+        displayInput = false; // Reset displayInput boolean
+    } else {
+        secondNumber = parseFloat(display.textContent);
+        secondOperator = '';    
+        // Run the operation
+        firstNumber = operate(firstOperator, firstNumber, secondNumber);
+        // Reassign operator
+        firstOperator = secondOperator;
+
+        // Display content
+        display.textContent = `${firstNumber}`;
+        tracker.textContent = `${firstNumber}`;
+        displayClear = false; // Do not reset display
+        displayInput = true; // Do not reset displayInput
     }
 }
