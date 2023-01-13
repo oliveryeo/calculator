@@ -50,35 +50,46 @@ function buttonClick(button) {
             displayClear = false;
         }
 
-        if (button.classList[0] === 'one'){
-            display.textContent += '1';
+        // If you click a number after an equal operator function, reset the number.
+        if (button.classList[0] === '1'){
+            if (equalOperator === true) resetVariables();
+            display.textContent += button.classList[0];
             displayInput = true;
-        } else if (button.classList[0] === 'two'){
-            display.textContent += '2';
+        } else if (button.classList[0] === '2'){
+            if (equalOperator === true) resetVariables();
+            display.textContent += button.classList[0];
             displayInput = true;
-        } else if (button.classList[0] === 'three'){
-            display.textContent += '3';
+        } else if (button.classList[0] === '3'){
+            if (equalOperator === true) resetVariables();
+            display.textContent += button.classList[0];
             displayInput = true;
-        } else if (button.classList[0] === 'four'){
-            display.textContent += '4';
+        } else if (button.classList[0] === '4'){
+            if (equalOperator === true) resetVariables();
+            display.textContent += button.classList[0];
             displayInput = true;
-        } else if (button.classList[0] === 'five'){
-            display.textContent += '5';
+        } else if (button.classList[0] === '5'){
+            if (equalOperator === true) resetVariables();
+            display.textContent += button.classList[0];
             displayInput = true;
-        } else if (button.classList[0] === 'six'){
-            display.textContent += '6';
+        } else if (button.classList[0] === '6'){
+            if (equalOperator === true) resetVariables();
+            display.textContent += button.classList[0];
             displayInput = true;
-        } else if (button.classList[0] === 'seven'){
-            display.textContent += '7';
+        } else if (button.classList[0] === '7'){
+            if (equalOperator === true) resetVariables();
+            display.textContent += button.classList[0];
             displayInput = true;
-        } else if (button.classList[0] === 'eight'){
-            display.textContent += '8';
+        } else if (button.classList[0] === '8'){
+            if (equalOperator === true) resetVariables();
+            display.textContent += button.classList[0];
             displayInput = true;
-        } else if (button.classList[0] === 'nine'){
-            display.textContent += '9';
+        } else if (button.classList[0] === '9'){
+            if (equalOperator === true) resetVariables();
+            display.textContent += button.classList[0];
             displayInput = true;
-        } else if (button.classList[0] === 'zero'){
-            display.textContent += '0';
+        } else if (button.classList[0] === '0'){
+            if (equalOperator === true) resetVariables();
+            display.textContent += button.classList[0];
             displayInput = true;
         } else if (button.classList[0] === 'decimal'){
             if (display.textContent.includes('.')){ // Check if already have decimal
@@ -110,6 +121,12 @@ function buttonClick(button) {
             display.textContent = display.textContent.slice(0,(display.textContent.length - 1));
         }
     });
+    function resetVariables() {
+        display.textContent = '';
+        equalOperator = false;
+        firstNumber = 0;
+        firstOperator = '';
+    }
 }
 
 function clearDisplay() {
@@ -122,65 +139,76 @@ function clearDisplay() {
 }
 
 function runOperation(operator) {
-    if (displayInput === false && equalOperator == false) return; // Avoid operator spamming
+    if (displayInput === false) return; // Avoid operator spamming
 
-    displayInput = false; // Reset everytime the function is run
-
-    if (firstOperator === '') {
-        firstNumber = parseFloat(display.textContent);
-        firstOperator = operator;
-
-        // Display divide symbol
-        if (operator === "/"){
-            tracker.textContent = `${firstNumber} ÷`;
-        } else if (operator === "=") {
-            tracker.textContent = `${firstNumber}`;
+    if (operator !== "="){
+        if (firstOperator === '') {
+            firstNumber = parseFloat(display.textContent);
+            firstOperator = operator;
+            // Display divide symbol
+            if (operator === "/"){
+                tracker.textContent = `${firstNumber} ÷`;
+            } else {
+                tracker.textContent = `${firstNumber} ${firstOperator}`;
+            }
+            displayClear = true; 
+            displayInput = false; // Reset everytime the function is run
+            equalOperator = false; // set to false whenever a non-equal operator is run
+    
         } else {
-            tracker.textContent = `${firstNumber} ${firstOperator}`;
+            secondNumber = parseFloat(display.textContent);
+            secondOperator = operator;
+            if (equalOperator !== true){ // Skip if equalOperator was run once to prevent accidental calculation
+                // Run the operation
+                firstNumber = operate(firstOperator, firstNumber, secondNumber);
+                // Reset everything if trying to divide by 0
+                if (Number.isNaN(firstNumber)){
+                    display.textContent = `trololol`;
+                    tracker.textContent = `trololol`;
+                    firstNumber = 0;
+                    secondNumber = 0;
+                    firstOperator = '';
+                    secondOperator = '';
+                    displayClear = true; // make sure to reset the display
+                    return;
+            }
+            }
+            // Reassign operator
+            firstOperator = secondOperator;
+            // Display content
+            display.textContent = `${firstNumber}`;
+            if (operator === "/"){
+                tracker.textContent = `${firstNumber} ÷`;
+            } else {
+                tracker.textContent = `${firstNumber} ${firstOperator}`;    
+            }
+            displayClear = true;
+            displayInput = false; // Reset everytime the function is run
+            equalOperator = false; // set to false whenever a non-equal operator is run
+    
         }
-
-        displayClear = true; 
-        
-    } else if (operator !== "=") {
-        secondNumber = parseFloat(display.textContent);
-        secondOperator = operator;    
-        // Run the operation
-        firstNumber = operate(firstOperator, firstNumber, secondNumber)
-
-        // Reset everything if trying to divide by 0
-        if (Number.isNaN(firstNumber)){
-            display.textContent = `trololol`;
-            tracker.textContent = `trololol`;
-            firstNumber = 0;
-            secondNumber = 0;
-            firstOperator = '';
-            secondOperator = '';
-            displayClear = true; // make sure to reset the display
-            return;
-        }
-
-        // Reassign operator
-        firstOperator = secondOperator;
-
-        // Display content
-        display.textContent = `${firstNumber}`;
-        if (operator === "/"){
-            tracker.textContent = `${firstNumber} ÷`;
-        } else {
-            tracker.textContent = `${firstNumber} ${firstOperator}`;    
-        }
-        displayClear = true;
     } else {
-        secondNumber = parseFloat(display.textContent);
-        secondOperator = '';    
-        // Run the operation
-        firstNumber = operate(firstOperator, firstNumber, secondNumber);
-        // Reassign operator
-        firstOperator = secondOperator;
-
-        // Display content
-        display.textContent = `${firstNumber}`;
-        tracker.textContent = `${firstNumber}`;
-        displayInput = true; // Do not reset so the boolean can be selected again
+        if (equalOperator === true) return; // avoid equal operator spamming
+        if (firstOperator === '') {
+            firstNumber = parseFloat(display.textContent);
+            tracker.textContent = `${firstNumber}`;
+            equalOperator = true;
+        } else {
+            secondNumber = parseFloat(display.textContent);
+            firstNumber = operate(firstOperator, firstNumber, secondNumber);
+            if (Number.isNaN(firstNumber)){
+                display.textContent = `trololol`;
+                tracker.textContent = `trololol`;
+                firstNumber = 0;
+                secondNumber = 0;
+                firstOperator = '';
+                secondOperator = '';
+                displayClear = true; // make sure to reset the display
+                return;
+            }
+            display.textContent = `${firstNumber}`;
+            tracker.textContent = `${firstNumber}`;
+            equalOperator = true;
+        }
     }
 }
