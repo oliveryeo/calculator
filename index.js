@@ -34,6 +34,13 @@ function operate(operator, a, b) {
 
 function buttonClick(button) {
     button.addEventListener('click', () => {
+        console.log(display.textContent.length);
+
+        // Prevent overflowing of display text
+        if (display.textContent.length === 24){
+            display.textContent = display.textContent.slice(0,(display.textContent.length - 1));
+        }
+
         // Clear or Delete functions
         if (button.classList[0] === 'clear'){
             clearDisplay();
@@ -90,10 +97,16 @@ function buttonClick(button) {
 
         // If firstNumber and firstOperator does not exist, assign them with current display input.
 
-        if (button.classList[0] === 'add'){
-            add();
-        } else if (button.classList[0] === 'add'){
-            console.log('work in progress!');
+        if (button.classList[0] === '+'){
+            runOperation('+');
+        } else if (button.classList[0] === '-'){
+            runOperation('-');
+        } else if (button.classList[0] === '/'){
+            runOperation('/');
+        } else if (button.classList[0] === '*'){
+            runOperation('*');
+        } else if (button.classList[0] === '='){
+            console.log('work in progress!')
         }
     });
 }
@@ -107,28 +120,38 @@ function clearDisplay() {
     secondOperator = '';
 }
 
-function add() {
+function runOperation(operator) {
     if (displayInput === false) return; // Avoid operator spamming
 
     if (firstNumber === 0 && firstOperator === '') {
         firstNumber = parseFloat(display.textContent);
-        firstOperator = '+';
-        tracker.textContent = `${firstNumber} ${firstOperator}`;
-        displayClear = true;
+        firstOperator = operator;
+        if (operator === "/"){
+            tracker.textContent = `${firstNumber} ÷`;
+        } else {
+            tracker.textContent = `${firstNumber} ${firstOperator}`;    
+        }
+
+        displayClear = true; 
         displayInput = false;
+        
     } else {
         secondNumber = parseFloat(display.textContent);
-        secondOperator = '+';
+        secondOperator = operator;
 
-        // Run the operation
-        firstNumber = operate(firstOperator, firstNumber, secondNumber);
+        // Run the operation and round the number
+        firstNumber = Math.round(operate(firstOperator, firstNumber, secondNumber) * 100) / 100;
 
         // Reassign operator
         firstOperator = secondOperator;
 
         // Display content
         display.textContent = `${firstNumber}`;
-        tracker.textContent = `${firstNumber} ${firstOperator}`;
+        if (operator === "/"){
+            tracker.textContent = `${firstNumber} ÷`;
+        } else {
+            tracker.textContent = `${firstNumber} ${firstOperator}`;    
+        }
         displayClear = true;
         displayInput = false;
     }
